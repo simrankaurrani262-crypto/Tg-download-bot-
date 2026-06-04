@@ -1,0 +1,59 @@
+services:
+  - type: worker
+    name: tg-ytdlp-bot
+    runtime: docker
+    dockerfilePath: ./render.Dockerfile
+    dockerContext: .
+    region: oregon
+    plan: standard
+    envVars:
+      # -------------------------------------------------------
+      # REQUIRED — set these in the Render dashboard
+      # -------------------------------------------------------
+      - key: BOT_TOKEN
+        sync: false
+      - key: API_ID
+        sync: false
+      - key: API_HASH
+        sync: false
+      - key: ADMIN
+        sync: false
+      - key: LOGS_ID
+        sync: false
+      # -------------------------------------------------------
+      # OPTIONAL — fill in as needed
+      # -------------------------------------------------------
+      - key: BOT_NAME
+        value: tgytdlp_bot
+      - key: BOT_NAME_FOR_USERS
+        value: tgytdlp_bot
+      - key: ADMIN_USERNAME
+        value: "@"
+      - key: ADMIN_GROUP
+        value: ""
+      - key: ALLOWED_GROUP
+        value: ""
+      - key: LOGS_VIDEO_ID
+        value: ""
+      - key: LOGS_NSFW_ID
+        value: ""
+      - key: LOGS_IMG_ID
+        value: ""
+      - key: LOGS_PAID_ID
+        value: ""
+      - key: LOG_EXCEPTION
+        value: ""
+      - key: SUBSCRIBE_CHANNEL
+        value: ""
+      - key: SUBSCRIBE_CHANNEL_URL
+        value: ""
+      - key: MINIAPP_URL
+        value: ""
+      - key: CHANNEL_GUARD_SESSION_STRING
+        value: ""
+      - key: USE_FIREBASE
+        value: "false"
+      - key: YOUTUBE_POT_ENABLED
+        value: "false"
+      - key: TZ
+        value: UTC

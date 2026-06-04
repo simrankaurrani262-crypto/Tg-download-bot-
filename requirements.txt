@@ -15,6 +15,7 @@ tldextract
 pillow
 chardet
 sdnotify
+PATCH
 firebase-admin
 bgutil-ytdlp-pot-provider
 urllib3

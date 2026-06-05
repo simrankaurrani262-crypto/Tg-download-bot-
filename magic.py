@@ -68,6 +68,23 @@ from pyrogram.types import (
 )
 from yt_dlp import YoutubeDL
 import yt_dlp
+import threading
+from http.server import HTTPServer, BaseHTTPRequestHandler
+import os
+class HealthHandler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        self.send_response(200)
+        self.end_headers()
+        self.wfile.write(b"OK")
+    def log_message(self, format, *args):
+        pass  # suppress access logs
+def run_health_server():
+    port = int(os.environ.get("PORT", 10000))
+    server = HTTPServer(("0.0.0.0", port), HealthHandler)
+    server.serve_forever()
+# Start health server in background thread BEFORE bot polling
+threading.Thread(target=run_health_server, daemon=True).start()
+# ... rest of your bot startup code
 
 # Config is now imported from CONFIG.config
 

@@ -30,4 +30,4 @@ COPY . .
 RUN find /app -type d -name __pycache__ -exec rm -rf {} + 2>/dev/null || true && \
     find /app -type f -name "*.pyc" -delete 2>/dev/null || true
 
-CMD ["python", "magic.py"]
+CMD ["python", "render_start.py"]

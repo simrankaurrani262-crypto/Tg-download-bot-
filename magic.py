@@ -82,8 +82,9 @@ def run_health_server():
     port = int(os.environ.get("PORT", 10000))
     server = HTTPServer(("0.0.0.0", port), HealthHandler)
     server.serve_forever()
-# Start health server in background thread BEFORE bot polling
-threading.Thread(target=run_health_server, daemon=True).start()
+# Only start health server if render_start.py is NOT managing it
+if not os.environ.get("DISABLE_HEALTH_SERVER"):
+    threading.Thread(target=run_health_server, daemon=True).start()
 # ... rest of your bot startup code
 
 # Config is now imported from CONFIG.config

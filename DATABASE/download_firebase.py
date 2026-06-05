@@ -59,6 +59,12 @@ FIREBASE_PASSWORD = getattr(Config, 'FIREBASE_PASSWORD', None)
 OUTPUT_FILE = getattr(Config, 'FIREBASE_CACHE_FILE', 'firebase_cache.json')
 TMP_OUTPUT_FILE = f"{OUTPUT_FILE}.tmp"
 
+# Skip Firebase validation if USE_FIREBASE is disabled
+USE_FIREBASE = getattr(Config, 'USE_FIREBASE', False)
+if not USE_FIREBASE:
+    print("ℹ️  Firebase is disabled (USE_FIREBASE=False). Skipping Firebase dump.")
+    sys.exit(0)
+
 if not FIREBASE_CONFIG or not FIREBASE_USER or not FIREBASE_PASSWORD:
     print(safe_get_messages().DB_NOT_ALL_PARAMETERS_SET_MSG)
     sys.exit(1)
@@ -266,6 +272,10 @@ def main():
     print("=" * 40)
     
     # Check config
+    if not USE_FIREBASE:
+        print("ℹ️  Firebase is disabled (USE_FIREBASE=False). Skipping Firebase dump.")
+        return True
+    
     if not FIREBASE_CONFIG or not FIREBASE_USER or not FIREBASE_PASSWORD:
         print(safe_get_messages().DB_NOT_ALL_PARAMETERS_SET_MSG)
         return False
